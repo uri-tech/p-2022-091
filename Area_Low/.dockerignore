@@ -1,0 +1,5 @@
+.dockerignore
+.git*
+Dockerfile*
+__pycache__
+forlater
