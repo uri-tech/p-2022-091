@@ -9,3 +9,4 @@ mypy-protobuf==2.4
 # cryptography==2.6.1
 # django-prometheus==1.0.15
 # natsort==6.0.0
+# import_from_github_com==1.0.0
