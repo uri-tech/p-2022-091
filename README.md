@@ -1,1 +1,1 @@
-![Alt text](Block_diagram.png?raw=true "Title")
+![Alt text](Blocks_diagram.png?raw=true "p-2022-091")

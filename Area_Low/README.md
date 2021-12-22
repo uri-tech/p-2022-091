@@ -1,0 +1,1 @@
+![Alt text](code_blocks_diagram.png?raw=true "Area Low - Code_Blocks_Diagram")
