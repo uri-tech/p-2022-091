@@ -1,1 +1,1 @@
-![Alt text](code_blocks_diagram.png?raw=true "Area High - Code_Blocks_Diagram")
+![Alt text](code_blocks.png?raw=true "Area High - Code_Blocks_Diagram")
