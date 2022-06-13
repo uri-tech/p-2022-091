@@ -3,6 +3,9 @@ try:
     import socket
     import threading
     import socketserver
+    from time import time
+    import random
+    RANGE_CONNECTION_TIME: tuple = tuple((114, 124))
     # import sys
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
@@ -16,15 +19,28 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
     override the handle() method to implement communication to the
     client.
     """
-
     def handle(self):
         try:
-            # self.request is the TCP socket connected to the client
-            self.data = self.request.recv(1024).strip()
-            print("{} wrote:".format(self.client_address[0]))
-            print(self.data)
-            # just send back the same data, but upper-cased
-            self.request.sendall(self.data.upper())
+            if hasattr(self, 'startTime') is False:
+                self.startTime = time()
+            print(self.startTime)
+            daltaRange = RANGE_CONNECTION_TIME[1] - RANGE_CONNECTION_TIME[0]
+            RANGE_CONNECTION_TIME[0]-RANGE_CONNECTION_TIME[1]
+            maxConnectionTime: float = random.gauss(RANGE_CONNECTION_TIME[0]+daltaRange, daltaRange)
+            while(maxConnectionTime < RANGE_CONNECTION_TIME[0] or maxConnectionTime > RANGE_CONNECTION_TIME[1]):
+                maxConnectionTime: float = random.gauss(RANGE_CONNECTION_TIME[0]+daltaRange, daltaRange)
+            # print(f"maxConnectionTime: {maxConnectionTime}")
+            if(time()-self.startTime < maxConnectionTime):
+                # self.request is the TCP socket connected to the client
+                self.data = self.request.recv(1024).strip()
+                print("{} wrote:".format(self.client_address[0]))
+                print(self.data)
+                # just send back the same data, but upper-cased
+                self.request.sendall(self.data.upper())
+                # self.request is the TCP socket connected to the client
+            else:
+                print(f"finish transmition with client")
+                self.finish()
         except Exception as ex:
             print(f"ERROR:\n{ex}")
 
@@ -52,8 +68,8 @@ def client(ip, port, message):
             sock.sendall(bytes(message, 'ascii'))
             response = str(sock.recv(1024), 'ascii')
             print("Received: {}".format(response))
-        except Exception as ex:
-            print(f"ERROR:\n{ex}")
+    except Exception as ex:
+        print(f"ERROR:\n{ex}")
 
 
 
@@ -94,7 +110,7 @@ class MyTcpHandler(socketserver.BaseRequestHandler):
             print(f"ERROR:\n{ex}")
 
 
-class MyTCPHandler(socketserver.StreamRequestHandler):
+class MyTCPHandler2(socketserver.StreamRequestHandler):
 
     def handle(self):
         try:

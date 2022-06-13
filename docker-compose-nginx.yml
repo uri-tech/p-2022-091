@@ -1,0 +1,58 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  attackr:
+    image: nginx
+    restart: always
+    build: ./
+    volumes:
+    # - ./templates:/etc/nginx/templates
+    - /home/a87/strike/strike/nginx/templates:/usr/share/nginx/html
+    - /home/a87/strike/strike/nginx/templates/nginx.conf:/etc/nginx/nginx.conf
+    # - /home/a87/strike/strike/nginx/templates/index.html:/usr/share/nginx/html/index.html
+    # - ./templates/data.pcap:/etc/nginx/data.pcap
+    ports:
+    - "8080:80"
+    environment:
+    #  - NGINX_HOST=foobar.com
+    - NGINX_PORT=80
+    - NGINX_ENTRYPOINT_QUIET_LOGS=1
+  satellite:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    # if the docker container fails for some reason it will restart
+    # nstructs the server to save 1 or more writes every 20 seconds to disk in case the server restarts
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+volumes:
+  cache:
+    driver: local
+
+# install docker-compose:
+#  sudo apt install docker-compose
+
+# run the file from linux:
+# cd /mnt/c/project/strike/nginx
+# docker-compose -f ./nginx/docker-compose-nginx.yml up -d
+# docker-compose -f ./nginx/docker-compose-nginx.yml down -v
+
+# run the file from win:
+# cd C:\project\strike\nginx
+# docker-compose -f ./nginx/docker-compose-nginx.yml up
+# docker-compose -f ./nginx/docker-compose-nginx.yml down -v
+
+# debug:
+# docker-compose -f ./nginx/docker-compose-nginx.yml logs 
+# docker run -p 80:80 -it --name some-nginx nginx
+#  docker-compose down
+
+# pip install docker-compose
+# curl -SL https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-armv7 -o /usr/local/bin/docker-compose
+# sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+# cd /home/a87/strike/strike
+# docker-compose -f /home/a87/strike/strike/nginx/docker-compose-nginx.yml up -d
+# docker-compose -f /home/a87/strike/strike/nginx/docker-compose-nginx.yml down -v
+
