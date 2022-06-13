@@ -1,5 +1,7 @@
 
+from HOST_PORT import HOSTPORT
+
 try:
-    HOST, PORT = "localhost", 9999
+    HOST, PORT = "localhost", HOSTPORT['Area_Low']
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
