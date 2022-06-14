@@ -1,4 +1,4 @@
-
+from HOST_PORT import HOSTPORT
 try:
     # import logging
     import socket
@@ -24,8 +24,15 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             self.data = self.request.recv(1024).strip()
             print("{} wrote:".format(self.client_address[0]))
             print(self.data)
+            data_byte = self.data
             # just send back the same data, but upper-cased
-            self.request.sendall(self.data.upper())
+            if(self.client_address[1] == HOSTPORT['Area_Low_OUT']):
+                # Forward Higher"
+                forward_socket(HOSTPORT['Attacker_OUT'],HOSTPORT['Area_High'],data_byte)
+                forward_socket(HOSTPORT['Attacker_OUT'],HOSTPORT['Attacker'],data_byte)
+            else:
+                # Forword Lower
+                forward_socket(HOSTPORT['Attacker_OUT'],HOSTPORT['Area_Low'],data_byte)
         except Exception as ex:
             print(f"ERROR:\n{ex}")
 
@@ -53,8 +60,8 @@ def client(ip, port, message):
             sock.sendall(bytes(message, 'ascii'))
             response = str(sock.recv(1024), 'ascii')
             print("Received: {}".format(response))
-        except Exception as ex:
-            print(f"ERROR:\n{ex}")
+    except Exception as ex:
+        print(f"ERROR:\n{ex}")
 
 
 
@@ -109,3 +116,17 @@ class MyTCPHandler(socketserver.StreamRequestHandler):
             self.wfile.write(self.data.upper())
         except Exception as ex:
             print(f"ERROR:\n{ex}")
+
+
+def forward_socket(src_port, dst_port,data):
+    HOST = "localhost"
+    # Create a socket (SOCK_STREAM means a TCP socket)
+    try :
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Connect to server and send data
+        sock.bind((HOST,src_port))
+        sock.connect((HOST, dst_port))
+        sock.sendall(data)
+        print(f"Sent FROM:  {src_port} ==> TO:  {dst_port}")
+    except:
+        print(f"Failed FROM:  {src_port} ==> TO:  {dst_port}")
