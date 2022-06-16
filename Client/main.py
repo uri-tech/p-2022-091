@@ -20,30 +20,9 @@ try:
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
 
-
-if __name__ == '__main__':
+def ClientThread(client_id)):
     try:
         HOST, PORT = "localhost", 9999
-        NUM_OF_CLIENT: int = 1000
-        CLIENT_ID_LIST: list = [i for i in range(0, 1000000+NUM_OF_CLIENT)]
-        shuffle(CLIENT_ID_LIST)
-        CLIENT_START_dBm: str = "4444dBm"
-        # clientThreadsList: list = []
-        # for _ in range(NUM_OF_CLIENT):
-        while(True):
-            while(threading.active_count() != NUM_OF_CLIENT):
-                x = threading.Thread(target=ClientThread, args=(), daemon=True)
-                x.start()
-    except Exception as ex:
-        raise Exception(f"main: {ex}")
-
-
-def ClientThread():
-    try:
-        HOST, PORT = "localhost", 9999
-        NUM_OF_CLIENT: int = 1000
-        CLIENT_ID_LIST: list = [i for i in range(0, 1000000+NUM_OF_CLIENT)]
-        shuffle(CLIENT_ID_LIST)
         CLIENT_START_dBm: str = "4444dBm"
         while(True):
             CLIENT_MIGRATION_TIME: float = uniform(100, 130)
@@ -66,6 +45,23 @@ def ClientThread():
             idxClientId = tempIdxClientId
     except Exception as ex:
         print(f"ClientThread: {ex}")
+
+
+if __name__ == '__main__':
+    try:
+        NUM_OF_CLIENT: int = 1000
+        CLIENT_ID_LIST: list = [i for i in range(0, 1000000+NUM_OF_CLIENT)]
+        shuffle(CLIENT_ID_LIST)
+        idxClientId: int = 0
+        while(True):
+            idxClientId +=1
+            if(idxClientId >=NUM_OF_CLIENT):
+                idxClientId = 0
+            while(threading.active_count() != NUM_OF_CLIENT):
+                x = threading.Thread(target=ClientThread, args=(CLIENT_ID_LIST[idxClientId]), daemon=True)
+                x.start()
+    except Exception as ex:
+        raise Exception(f"main: {ex}")
 
 # # return None if not exist
 # user_mongo = getenv('HOST_LOW_AREA')
