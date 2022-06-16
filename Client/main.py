@@ -18,16 +18,16 @@ try:
     logger = logging.getLogger('tcpserver')
     logger.setLevel(1)
     hostLowArea = getenv('HOST_LOW_AREA')
-    if hostLowArea is not None:
+    if hostLowArea is None:
         HOST_LOW_AREA = "localhost"
     portLowArea = getenv('PORT_LOW_AREA')
-    if portLowArea is not None:
-        PORT_LOW_AREA = "8012"
+    if portLowArea is None:
+        PORT_LOW_AREA = 8012
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
 
 
-def ClientThread(client_id):
+def ClientThread(client_id: str):
     try:
         CLIENT_START_dBm: str = "4444dBm"
         while(True):
@@ -37,9 +37,9 @@ def ClientThread(client_id):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 # Connect to server and send data
                 sock.settimeout(CLIENT_MIGRATION_TIME)
-                sock.connect((HOST_LOW_AREA, PORT_LOW_AREA))
+                sock.connect((HOST_LOW_AREA, int(PORT_LOW_AREA)))
                 start_time = time()
-                sock.sendall(bytes(CLIENT_START_dBm + CLIENT_ID_LIST[idxClientId] + temp_time + "1"*100 + "\n", "utf-8"))
+                sock.sendall(bytes(str(CLIENT_START_dBm) + str(CLIENT_ID_LIST[idxClientId]) + str(temp_time) + "1"*100 + "\n", "utf-8"))
                 # Receive data from the server and shut dow
                 # received = str(sock.recv(1024), "utf-8")
 
@@ -56,16 +56,16 @@ def ClientThread(client_id):
 if __name__ == '__main__':
     try:
         NUM_OF_CLIENT: int = 1000
-        CLIENT_ID_LIST: list = [i for i in range(0, 1000000+NUM_OF_CLIENT)]
+        CLIENT_ID_LIST: list = [i for i in range(1000000000, 1000000000+NUM_OF_CLIENT, 1)]
         shuffle(CLIENT_ID_LIST)
         idxClientId: int = 0
         while(True):
-            idxClientId += 1
             if(idxClientId >= NUM_OF_CLIENT):
                 idxClientId = 0
             while(threading.active_count() != NUM_OF_CLIENT):
-                client_t = threading.Thread(target=ClientThread, args=(CLIENT_ID_LIST[idxClientId],), daemon=True)
+                client_t = threading.Thread(target=ClientThread, args=(str(CLIENT_ID_LIST[idxClientId]),), daemon=True)
                 client_t.start()
+            idxClientId += 1
     except Exception as ex:
         raise Exception(f"main: {ex}")
 
@@ -73,3 +73,5 @@ if __name__ == '__main__':
 # hostLowArea = getenv('HOST_LOW_AREA')
 # if user_mongo is not None:
 #     HOST_LOW_AREA = str(hostLowArea)
+
+
