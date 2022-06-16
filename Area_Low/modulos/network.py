@@ -10,6 +10,9 @@ try:
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
 
+client_sid = 1000000000
+client_max_device = 10000
+
 
 class CustomTCPHandler(socketserver.BaseRequestHandler):
     """
@@ -29,15 +32,25 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
 
             low_db = 2
             data_byte = lower_snr(self.data, low_db)
+            index_start = str(data_byte).find('dBm',0,10)+3
+            client_id = int(str(data_byte)[index_start:index_start+10])
+            
             print(data_byte)
             # Send forward the same data, with lower snr
-            if(self.client_address[1] == HOSTPORT['Client']):
-                print("Forward Higher")
-                forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Area_High'], data_byte)
-                forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Attacker'], data_byte)
-                self.request.sendall(response)
-            else:
-                forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Client'], data_byte)
+            if client_sid < client_id < client_sid + client_max_device:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    sock.connect(("localhost", 8014))
+                    sock.sendall(data_byte)
+
+
+
+            # if(self.client_address[1] == HOSTPORT['Client']):
+            #     #"Forward Higher"
+            #     #forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Area_High'], data_byte)
+            #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Attacker'], data_byte)
+            # else:
+            #     #"Forward Higher"
+            #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Client'], data_byte)
 
         except Exception as ex:
             print(f"ERROR:\n{ex}")
