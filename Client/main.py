@@ -50,7 +50,7 @@ def ClientThread(client_id: str):
                 tempIdxClientId: int = randint(0, NUM_OF_CLIENT)
             idxClientId = tempIdxClientId
     except Exception as ex:
-        print(f"ClientThread: {ex}")
+        print(f"Client-ClientThread: {ex}")
 
 
 if __name__ == '__main__':
@@ -67,11 +67,4 @@ if __name__ == '__main__':
                 client_t.start()
             idxClientId += 1
     except Exception as ex:
-        raise Exception(f"main: {ex}")
-
-# # return None if not exist
-# hostLowArea = getenv('HOST_LOW_AREA')
-# if user_mongo is not None:
-#     HOST_LOW_AREA = str(hostLowArea)
-
-
+        print(f"Client-main: {ex}")
