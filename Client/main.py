@@ -2,15 +2,15 @@
 try:
     import logging
     from datetime import datetime, timedelta
-    from os import getenv
     import threading
     # from modulos.secrets import HOST, PORT
     import socket
     from time import time
     from random import uniform, randint, shuffle
+    from modulos.secrets import HOST_LOW_AREA, PORT_LOW_AREA
     # from github_com.kennethreitz import requests
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
-
+    
     # formating the log
     FORMAT = '%(asctime)-15s %(nodeip)s %(type)-8s, message: %(message)s'
     logging.basicConfig(format=FORMAT)
@@ -36,7 +36,8 @@ def ClientThread(client_id: str):
                 start_time = time()
                 sock.sendall(bytes(str(CLIENT_START_dBm) + str(CLIENT_ID_LIST[idxClientId]) + str(temp_time) + "1"*100 + "\n", "utf-8"))
                 # Receive data from the server and shut dow
-                # received = str(sock.recv(1024), "utf-8")
+                received = str(sock.recv(1024), "utf-8")
+                print(f"received data: {received}")
 
                 while(sock.gettimeout() > time()-start_time):
                     pass
