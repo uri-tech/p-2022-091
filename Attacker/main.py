@@ -3,8 +3,8 @@ try:
     import logging
     import socketserver
     from modulos.network import CustomTCPHandler
-    from modulos.secrets import HOST, PORT
-    # from github_com.kennethreitz import requests
+    from modulos.secrets import HOST_ATTACKER, PORT_ATTACKER
+    # from github_com."" import requests
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
 
     # formating the log
@@ -14,16 +14,16 @@ try:
     logger = logging.getLogger('tcpserver')
     logger.setLevel(1)
 except Exception as ex:
-    raise Exception(f"ERROR:\n{ex}")
+    raise Exception(f"Attacker-ERROR:\n{ex}")
 
 
 if __name__ == '__main__':
     try:
-        # Create the server, binding to ip HOST on PORT 
-        with socketserver.ThreadingTCPServer((HOST, PORT), CustomTCPHandler) as server:
-            logger.warning(f"Listening on {HOST} in port {PORT}", extra=d)
+        # Create the server, binding to ip HOST on PORT
+        with socketserver.ThreadingTCPServer((HOST_ATTACKER, PORT_ATTACKER), CustomTCPHandler) as server:
+            logger.warning(f"Listening on {HOST_ATTACKER} in port {PORT_ATTACKER}", extra=d)
             # Activate the server; this will keep running until  interrupt the program with Ctrl-C
             server.serve_forever()
 
     except Exception as ex:
-        raise Exception(f"main: {ex}")
+        raise Exception(f"Attacker-main: {ex}")

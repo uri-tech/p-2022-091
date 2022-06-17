@@ -32,12 +32,12 @@ if __name__ == '__main__':
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 # Connect to server and send data
                 sock.settimeout(SATELLITE_MIGRATION_TIME)
-                sock.connect((PORT_HIGH_AREA, PORT_HIGH_AREA))
+                sock.connect((HOST_HIGH_AREA, PORT_HIGH_AREA))
                 start_time = time()
                 sock.sendall(bytes(SATELLITE_START_dBm + SATELLITE_ID_LIST[idxSatelliteId] + "1"*100 + "\n", "utf-8"))
                 # Receive data from the server and shut dow
                 # received = str(sock.recv(1024), "utf-8")
-                
+
                 # leave the connection open until the migration time pass
                 while(sock.gettimeout() > time()-start_time):
                     pass
