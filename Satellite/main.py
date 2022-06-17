@@ -5,7 +5,7 @@ try:
     import socket
     from time import time
     from random import uniform, randint, shuffle
-    from os import getenv
+    from modulos.secrets import HOST_HIGH_AREA, PORT_HIGH_AREA
     # from github_com "" import requests
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
 
@@ -15,13 +15,6 @@ try:
     d = {'nodeip': 'ip', 'type': 'Satellite-Container'}
     logger = logging.getLogger('tcpserver')
     logger.setLevel(1)
-    # env
-    HOST_HIGH_AREA = getenv('HOST_HIGH_AREA')
-    if HOST_HIGH_AREA is None:
-        HOST_HIGH_AREA = "localhost"
-    PORT_HIGH_AREA = getenv('PORT_HIGH_AREA')
-    if PORT_HIGH_AREA is None:
-        PORT_HIGH_AREA = 8022
 except Exception as ex:
     raise Exception(f"Satellite-ERROR:\n{ex}")
 

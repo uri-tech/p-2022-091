@@ -14,7 +14,7 @@ try:
     logger = logging.getLogger('tcpserver')
     logger.setLevel(1)
 except Exception as ex:
-    raise Exception(f"ERROR:\n{ex}")
+    raise Exception(f"Server-ERROR:\n{ex}")
 
 
 if __name__ == '__main__':
@@ -26,4 +26,4 @@ if __name__ == '__main__':
             server.serve_forever()
 
     except Exception as ex:
-        raise Exception(f"main: {ex}")
+        raise Exception(f"Server-main: {ex}")

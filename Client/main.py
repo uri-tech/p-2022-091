@@ -17,12 +17,7 @@ try:
     d = {'nodeip': 'ip', 'type': 'Client-Container'}
     logger = logging.getLogger('tcpserver')
     logger.setLevel(1)
-    hostLowArea = getenv('HOST_LOW_AREA')
-    if hostLowArea is None:
-        HOST_LOW_AREA = "localhost"
-    portLowArea = getenv('PORT_LOW_AREA')
-    if portLowArea is None:
-        PORT_LOW_AREA = 8012
+
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
 
