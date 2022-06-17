@@ -42,7 +42,7 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             # Send forward the same data, with lower snr
             if client_sid < client_id < client_sid + client_max_device:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                    sock.connect(("localhost", 8016))
+                    sock.connect(("localhost", 8022))
                     sock.sendall(data_byte)
 
         except Exception as ex:

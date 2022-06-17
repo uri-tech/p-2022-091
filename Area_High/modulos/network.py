@@ -10,6 +10,11 @@ try:
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
 
+client_sid = 1000000000
+client_max_device = 10000
+
+satellite_sid = 2000000000
+satellite_max_device = 10000
 
 class CustomTCPHandler(socketserver.BaseRequestHandler):
     """
@@ -32,12 +37,17 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             data_byte = lower_snr(self.data,low_db)
             print(data_byte)
             # Send forward the same data, with lower snr
-            if(self.client_address[1] == HOSTPORT['Satellite']):
-                print("Forward Lower")
-                forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Area_Low'],data_byte)
-                forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Attacker'],data_byte)
-            else:
-                forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Satellite'],data_byte)
+            # if(self.client_address[1] == HOSTPORT['Satellite']):
+            #     print("Forward Lower")
+            #     forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Area_Low'],data_byte)
+            #     forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Attacker'],data_byte)
+            # else:
+            #     forward_socket(HOSTPORT['Area_High_OUT'],HOSTPORT['Satellite'],data_byte)
+
+            if satellite_sid < satellite_sid < satellite_sid + satellite_max_device:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                    sock.connect(("localhost", 8014))
+                    sock.sendall(data_byte)
 
             
 
