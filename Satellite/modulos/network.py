@@ -71,43 +71,41 @@ def client(ip, port, message):
     except Exception as ex:
         print(f"ERROR:\n{ex}")
 
+# class MyTcpHandler(socketserver.BaseRequestHandler):
+#     # BaseRequestHandler is specifically used to process communication-related information
+#     def handle(self):
+#         try:
+#             # Here must define a handle method, and the method name must be handle, sockerserver will automatically call the handle method
+#             print(self.request)  # The self.request here is equivalent to the conn object we saw before (conn,client_addr=server.accept())
+#             while True:
+#                 try:
+#                     recv_cliend_cmd = self.request.recv(1024)  # Receive instructions from the client
+#                     if not recv_cliend_cmd:
+#                         break
+#                         # Next, we will process the instructions sent by the client
+#                     obj = subprocess.Popen(recv_cliend_cmd.decode('utf-8'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#                     stdout = obj.stdout.read()
+#                     stderr = obj.stderr.read()
+#                     # Let's create the header (write it at will), here we really use the total_size in the dictionary
+#                     # header_dic={
+#                     #         'total_size':len(stdout)+len(stderr),
+#                     #         'filename':'xxx.mp4',
+#                     #         'md5sum':'8f6fbf8347faa4924a76856701edb0f3'
+#                     # }
+#                     # header_json = json.dumps(header_dic)
+#                     print(stderr)
+#                     # header_bytes = header_json.encode('utf-8')
+#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4, so the client can receive four bytes for the first time
+#                     # self.request.send(header_bytes)
+#                     # self.request.send(stdout)
+#                     # self.request.send(stderr)
+#                     self.request.sendall(self.data.upper())
 
-
-class MyTcpHandler(socketserver.BaseRequestHandler):
-    # BaseRequestHandler is specifically used to process communication-related information
-    def handle(self):
-        try:
-            # Here must define a handle method, and the method name must be handle, sockerserver will automatically call the handle method
-            print(self.request)  # The self.request here is equivalent to the conn object we saw before (conn,client_addr=server.accept())
-            while True:
-                try:
-                    recv_cliend_cmd = self.request.recv(1024) # Receive instructions from the client
-                    if not recv_cliend_cmd:
-                        break
-                        # Next, we will process the instructions sent by the client
-                    obj = subprocess.Popen(recv_cliend_cmd.decode('utf-8'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    stdout = obj.stdout.read()
-                    stderr = obj.stderr.read()
-                    # Let's create the header (write it at will), here we really use the total_size in the dictionary
-                    # header_dic={
-                    #         'total_size':len(stdout)+len(stderr),
-                    #         'filename':'xxx.mp4',
-                    #         'md5sum':'8f6fbf8347faa4924a76856701edb0f3'
-                    # }
-                    # header_json = json.dumps(header_dic)
-                    print(stderr)
-                    # header_bytes = header_json.encode('utf-8')
-                    # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4, so the client can receive four bytes for the first time
-                    # self.request.send(header_bytes)
-                    # self.request.send(stdout)
-                    # self.request.send(stderr)
-                    self.request.sendall(self.data.upper())
-
-                except ConnectionResetError:
-                    break
-            self.request.close()
-        except Exception as ex:
-            print(f"ERROR:\n{ex}")
+#                 except ConnectionResetError:
+#                     break
+#             self.request.close()
+#         except Exception as ex:
+#             print(f"ERROR:\n{ex}")
 
 
 class MyTCPHandler2(socketserver.StreamRequestHandler):

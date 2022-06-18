@@ -8,6 +8,7 @@ try:
     from modulos.secrets import HOST_HIGH_AREA, PORT_HIGH_AREA
     # from github_com "" import requests
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
+    import signal, os
 
     # formating the log
     FORMAT = '%(asctime)-15s %(nodeip)s %(type)-8s, message: %(message)s'
@@ -17,6 +18,11 @@ try:
     logger.setLevel(1)
 except Exception as ex:
     raise Exception(f"Satellite-ERROR:\n{ex}")
+
+
+def handler(signum, frame):
+    print('Signal handler called with signal', signum)
+    raise OSError("Couldn't open device!")
 
 
 if __name__ == '__main__':
@@ -35,8 +41,13 @@ if __name__ == '__main__':
                 sock.connect((HOST_HIGH_AREA, PORT_HIGH_AREA))
                 start_time = time()
                 sock.sendall(bytes(SATELLITE_START_dBm + SATELLITE_ID_LIST[idxSatelliteId] + "1"*100 + "\n", "utf-8"))
+                
+                # Set the signal handler and a 5-second alarm
+                signal.signal(signal.SIGALRM, handler)
+                signal.alarm(5)
+                
                 # Receive data from the server and shut dow
-                # received = str(sock.recv(1024), "utf-8")
+                received = str(sock.recv(1024), "utf-8")
 
                 # leave the connection open until the migration time pass
                 while(sock.gettimeout() > time()-start_time):
