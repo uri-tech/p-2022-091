@@ -34,7 +34,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy the code(dont need that - will do in the next image)
-# COPY . .
+COPY . .
 
 # promition - THE END
 RUN chmod -R 777 /opt/code
@@ -75,7 +75,7 @@ ENV DEBUG_MODE="real"
 RUN chmod -R 777 /opt/code
 
 # open port from the contanier
-EXPOSE port
+# EXPOSE port
 
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]

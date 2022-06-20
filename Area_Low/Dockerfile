@@ -33,9 +33,6 @@ COPY requirements.txt .
 # install dependencies
 RUN pip install -r requirements.txt
 
-# copy the code(dont need that - will do in the next image)
-# COPY . .
-
 # promition - THE END
 RUN chmod -R 777 /opt/code
 
@@ -68,14 +65,49 @@ RUN chmod -R 777 /opt/code
 # copy the content of the local src directory to the working directory
 COPY . .
 
-# envirment variable for controoling from ymal
-ENV DEBUG_MODE="real"
-
 # promition END
 RUN chmod -R 777 /opt/code
 
 # open port from the contanier
-EXPOSE port
+EXPOSE 8012
 
-# run the sms-server-grpc
+# run the area-low
 CMD ["/bin/sh","-c", "python3 main.py"]
+
+# build image:
+# linux
+# ssh a87@192.168.0.61
+# myhome87
+
+# scp -r C:\bgu\p-2022-091\area-low a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
+# docker build -t python-area_low:v0.1 /p-2022-091/storage/nfs/image_build/Area-Low/
+
+# push to local registry:
+# docker tag python-area_low:v0.1 192.168.0.235:5000/python-area_low:latest
+# docker push 192.168.0.235:5000/python-area_low:latest
+
+
+
+
+
+
+# docker run:
+# docker run --name python-area-low -d -p 8012:8012 python-area-low:latest
+# docker image ls
+# inspact the containing:
+# docker ps -a
+# sudo docker logs python-area-low
+# sudo docker inspect python-area-low
+# docker exec -it -u root python-area-low /bin/sh
+# docker exec -it python-area-low /bin/sh
+
+# find the images:
+# docker images 192.168.0.235:5000/python-area-low
+
+# remove docker contaner and image:
+# docker rm -f $(docker ps -aq)
+# docker image rm -f $(docker image ls -q)
+# docker rm -f area-low-python
+# docker image rm -f python-area-low
+# docker image ls | grep python-area-low
+# docker image rm -f <container> <container> <container>
