@@ -3,7 +3,7 @@ try:
     import logging
     import socketserver
     from modulos.network import CustomTCPHandler
-    from modulos.secrets import HOST, PORT
+    from modulos.secrets import HOST_SERVER, PORT_SERVER
     # from github_com.kennethreitz import requests
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
 
@@ -20,8 +20,8 @@ except Exception as ex:
 if __name__ == '__main__':
     try:
         # Create the server, binding to ip HOST on PORT 
-        with socketserver.ThreadingTCPServer((HOST, PORT), CustomTCPHandler) as server:
-            logger.warning(f"Listening on {HOST} in port {PORT}", extra=d)
+        with socketserver.ThreadingTCPServer(("0.0.0.0", int(PORT_SERVER)), CustomTCPHandler) as server:
+            logger.warning(f"Listening on 0.0.0.0 in port {PORT_SERVER}", extra=d)
             # Activate the server; this will keep running until  interrupt the program with Ctrl-C
             server.serve_forever()
 

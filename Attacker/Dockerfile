@@ -74,6 +74,12 @@ ENV DEBUG_MODE="real"
 # promition END
 RUN chmod -R 777 /opt/code
 
+# envirment variable - no need: controlling from ymal
+# ENV HOST_LOW_AREA=svc-python-area-low.p-2022-91.svc.cluster.local PORT_LOW_AREA=8012
+# ENV HOST_HIGH_AREA=svc-python-area-high.p-2022-91.svc.cluster.local PORT_HIGH_AREA=8022
+# ENV HOST_ATTACKER=svc-python-attacker.p-2022-91.svc.cluster.local PORT_ATTACKER=8014
+# ENV HOST_SERVER=svc-python-analysis-server.p-2022-91.svc.cluster.local PORT_SERVER=8030
+
 # open port from the contanier
 EXPOSE 8014
 

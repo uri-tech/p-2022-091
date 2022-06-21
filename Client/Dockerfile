@@ -68,7 +68,7 @@ RUN chmod -R 777 /opt/code
 # copy the content of the local src directory to the working directory
 COPY . .
 
-# envirment variable for controoling from ymal
+# envirment variable - no need: controlling from ymal
 # ENV HOST_LOW_AREA=svc-python-area-low.p-2022-91.svc.cluster.local PORT_LOW_AREA=8012
 # ENV HOST_HIGH_AREA=svc-python-area-high.p-2022-91.svc.cluster.local PORT_HIGH_AREA=8022
 # ENV HOST_ATTACKER=svc-python-attacker.p-2022-91.svc.cluster.local PORT_ATTACKER=8014
@@ -83,6 +83,8 @@ RUN chmod -R 777 /opt/code
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]
 
+
+# scp -r C:\bgu\p-2022-091\Client a87@87.68.184.164:/p-2022-091/storage/nfs/image_build
 
 # scp -r C:\bgu\p-2022-091\Client a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
 # docker build -t python-client:v0.4 /p-2022-091/storage/nfs/image_build/Client/
@@ -114,3 +116,8 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 # docker image rm -f python-client
 # docker image ls | grep python-client
 # docker image rm -f <container> <container> <container>
+
+# k:
+# kubectl -n p-2022-091 get pods
+# kubectl -n p-2022-091 logs deployment-python-client-65945dbc76-jxpbn
+# kubectl -n p-2022-091 delete pod
