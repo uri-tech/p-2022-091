@@ -75,7 +75,39 @@ ENV DEBUG_MODE="real"
 RUN chmod -R 777 /opt/code
 
 # open port from the contanier
-EXPOSE port
+EXPOSE 8030
 
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]
+
+
+# scp -r C:\bgu\p-2022-091\Analysis_Server a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
+# docker build -t python-analysis-server:v0.3 /p-2022-091/storage/nfs/image_build/Analysis_Server/
+
+# push to local registry:
+# docker tag python-analysis-server:v0.3 192.168.0.235:5000/python-analysis-server:latest
+# docker push 192.168.0.235:5000/python-analysis-server:latest
+
+
+
+# docker run:
+# docker run --name python-analysis-server -d -p 8012:8012 192.168.0.235:5000/python-analysis-server:latest
+# docker image ls
+# inspact the containing:
+# docker ps -a
+# sudo docker logs python-analysis-server
+# sudo docker inspect python-analysis-server
+# docker exec -it -u root python-analysis-server /bin/sh
+# docker exec -it python-analysis-server /bin/sh
+
+# find the images:
+# docker images 192.168.0.235:5000/python-analysis-server
+
+# remove docker contaner and image:
+# docker container stop python-analysis-server
+# docker rm -f $(docker ps -aq)
+# docker image rm -f $(docker image ls python-analysis-server -q)
+# docker rm -f analysis-server-python
+# docker image rm -f python-analysis-server
+# docker image ls | grep python-analysis-server
+# docker image rm -f <container> <container> <container>

@@ -75,7 +75,38 @@ ENV DEBUG_MODE="real"
 RUN chmod -R 777 /opt/code
 
 # open port from the contanier
-EXPOSE port
+EXPOSE 8014
 
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]
+
+# scp -r C:\bgu\p-2022-091\Attacker a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
+# docker build -t python-attacker:v0.3 /p-2022-091/storage/nfs/image_build/Attacker/
+
+# push to local registry:
+# docker tag python-attacker:v0.3 192.168.0.235:5000/python-attacker:latest
+# docker push 192.168.0.235:5000/python-attacker:latest
+
+
+
+# docker run:
+# docker run --name python-attacker -d -p 8012:8012 192.168.0.235:5000/python-attacker:latest
+# docker image ls
+# inspact the containing:
+# docker ps -a
+# sudo docker logs python-attacker
+# sudo docker inspect python-attacker
+# docker exec -it -u root python-attacker /bin/sh
+# docker exec -it python-attacker /bin/sh
+
+# find the images:
+# docker images 192.168.0.235:5000/python-attacker
+
+# remove docker contaner and image:
+# docker container stop python-attacker
+# docker rm -f $(docker ps -aq)
+# docker image rm -f $(docker image ls python-attacker -q)
+# docker rm -f attacker-python
+# docker image rm -f python-attacker
+# docker image ls | grep python-attacker
+# docker image rm -f <container> <container> <container>

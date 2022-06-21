@@ -75,7 +75,39 @@ ENV DEBUG_MODE="real"
 RUN chmod -R 777 /opt/code
 
 # open port from the contanier
-EXPOSE port
+EXPOSE 8022
 
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]
+
+
+# scp -r C:\bgu\p-2022-091\Area_High a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
+# docker build -t python-area-high:v0.3 /p-2022-091/storage/nfs/image_build/Area_High/
+
+# push to local registry:
+# docker tag python-area-high:v0.3 192.168.0.235:5000/python-area-high:latest
+# docker push 192.168.0.235:5000/python-area-high:latest
+
+
+
+# docker run:
+# docker run --name python-area-high -d -p 8012:8012 192.168.0.235:5000/python-area-high:latest
+# docker image ls
+# inspact the containing:
+# docker ps -a
+# sudo docker logs python-area-high
+# sudo docker inspect python-area-high
+# docker exec -it -u root python-area-high /bin/sh
+# docker exec -it python-area-high /bin/sh
+
+# find the images:
+# docker images 192.168.0.235:5000/python-area-high
+
+# remove docker contaner and image:
+# docker container stop python-area-high
+# docker rm -f $(docker ps -aq)
+# docker image rm -f $(docker image ls python-area-high -q)
+# docker rm -f area-high-python
+# docker image rm -f python-area-high
+# docker image ls | grep python-area-high
+# docker image rm -f <container> <container> <container>

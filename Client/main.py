@@ -25,6 +25,7 @@ except Exception as ex:
 def ClientThread(client_id: str):
     try:
         CLIENT_START_dBm: str = "4444dBm"
+        print(f"HOST_LOW_AREA: {'10.106.149.84'}, PORT_LOW_AREA:{PORT_LOW_AREA}")
         while(True):
             CLIENT_MIGRATION_TIME: float = uniform(100, 130)
             temp_time = int((datetime.now() + timedelta(seconds=CLIENT_MIGRATION_TIME)).strftime("%Y%m%d%H%M%S"))
@@ -32,7 +33,7 @@ def ClientThread(client_id: str):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 # Connect to server and send data
                 sock.settimeout(CLIENT_MIGRATION_TIME)
-                sock.connect((HOST_LOW_AREA, int(PORT_LOW_AREA)))
+                sock.connect(("10.106.149.84", int(PORT_LOW_AREA)))
                 start_time = time()
                 sock.sendall(bytes(str(CLIENT_START_dBm) + str(CLIENT_ID_LIST[idxClientId]) + str(temp_time) + "1"*100 + "\n", "utf-8"))
                 # Receive data from the server and shut dow

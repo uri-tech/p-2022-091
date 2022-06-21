@@ -20,8 +20,8 @@ except Exception as ex:
 if __name__ == '__main__':
     try:
         # Create the server, binding to ip HOST on PORT 
-        with socketserver.ThreadingTCPServer((HOST_LOW_AREA, PORT_LOW_AREA), CustomTCPHandler) as server:
-            logger.warning(f"Listening on {HOST_LOW_AREA} in port {PORT_LOW_AREA}", extra=d)
+        with socketserver.ThreadingTCPServer(("0.0.0.0", int(PORT_LOW_AREA)), CustomTCPHandler) as server:
+            logger.warning(f"Listening on '0.0.0.0' in port {int(PORT_LOW_AREA)}", extra=d)
             # Activate the server; this will keep running until  interrupt the program with Ctrl-C
             server.serve_forever()
 

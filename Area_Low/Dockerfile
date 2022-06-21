@@ -74,25 +74,18 @@ EXPOSE 8012
 # run the area-low
 CMD ["/bin/sh","-c", "python3 main.py"]
 
-# build image:
-# linux
-# ssh a87@192.168.0.61
-# myhome87
 
-# scp -r C:\bgu\p-2022-091\area-low a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
-# docker build -t python-area_low:v0.1 /p-2022-091/storage/nfs/image_build/Area-Low/
+# scp -r C:\bgu\p-2022-091\Area_Low a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
+# docker build -t python-area-low:v0.3 /p-2022-091/storage/nfs/image_build/Area_Low/
 
 # push to local registry:
-# docker tag python-area_low:v0.1 192.168.0.235:5000/python-area_low:latest
-# docker push 192.168.0.235:5000/python-area_low:latest
-
-
-
+# docker tag python-area-low:v0.3 192.168.0.235:5000/python-area-low:latest
+# docker push 192.168.0.235:5000/python-area-low:latest
 
 
 
 # docker run:
-# docker run --name python-area-low -d -p 8012:8012 python-area-low:latest
+# docker run --name python-area-low -d -p 8012:8012 192.168.0.235:5000/python-area-low:latest
 # docker image ls
 # inspact the containing:
 # docker ps -a
@@ -105,8 +98,9 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 # docker images 192.168.0.235:5000/python-area-low
 
 # remove docker contaner and image:
+# docker container stop python-area-low
 # docker rm -f $(docker ps -aq)
-# docker image rm -f $(docker image ls -q)
+# docker image rm -f $(docker image ls python-area-low -q)
 # docker rm -f area-low-python
 # docker image rm -f python-area-low
 # docker image ls | grep python-area-low
