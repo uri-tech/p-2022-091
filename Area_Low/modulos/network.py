@@ -1,10 +1,7 @@
-
-from HOST_PORT import HOSTPORT
-
 try:
     # import logging
     import socket
-    import threading
+    # import threading
     import socketserver
     # import sys
 except Exception as ex:
@@ -32,17 +29,15 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
 
             low_db = 2
             data_byte = lower_snr(self.data, low_db)
-            index_start = str(data_byte).find('dBm',0,10)+3
+            index_start = str(data_byte).find('dBm', 0, 10)+3
             client_id = int(str(data_byte)[index_start:index_start+10])
-            
+
             print(data_byte)
             # Send forward the same data, with lower snr
             if client_sid < client_id < client_sid + client_max_device:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                     sock.connect(("localhost", 8014))
                     sock.sendall(data_byte)
-
-
 
             # if(self.client_address[1] == HOSTPORT['Client']):
             #     #"Forward Higher"
@@ -80,43 +75,6 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
 #             print("Received: {}".format(response))
 #     except Exception as ex:
 #         print(f"ERROR:\n{ex}")
-
-
-# class MyTcpHandler(socketserver.BaseRequestHandler):
-#     # BaseRequestHandler is specifically used to process communication-related information
-#     def handle(self):
-#         try:
-#             # Here must define a handle method, and the method name must be handle, sockerserver will automatically call the handle method
-#             print(self.request)  # The self.request here is equivalent to the conn object we saw before (conn,client_addr=server.accept())
-#             while True:
-#                 try:
-#                     recv_cliend_cmd = self.request.recv(1024) # Receive instructions from the client
-#                     if not recv_cliend_cmd:
-#                         break
-#                         # Next, we will process the instructions sent by the client
-#                     obj = subprocess.Popen(recv_cliend_cmd.decode('utf-8'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#                     stdout = obj.stdout.read()
-#                     stderr = obj.stderr.read()
-#                     # Let's create the header (write it at will), here we really use the total_size in the dictionary
-#                     # header_dic={
-#                     #         'total_size':len(stdout)+len(stderr),
-#                     #         'filename':'xxx.mp4',
-#                     #         'md5sum':'8f6fbf8347faa4924a76856701edb0f3'
-#                     # }
-#                     # header_json = json.dumps(header_dic)
-#                     print(stderr)
-#                     # header_bytes = header_json.encode('utf-8')
-#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4, so the client can receive four bytes for the first time
-#                     # self.request.send(header_bytes)
-#                     # self.request.send(stdout)
-#                     # self.request.send(stderr)
-#                     self.request.sendall(self.data.upper())
-
-#                 except ConnectionResetError:
-#                     break
-#             self.request.close()
-#         except Exception as ex:
-#             print(f"ERROR:\n{ex}")
 
 
 # class MyTCPHandler(socketserver.StreamRequestHandler):

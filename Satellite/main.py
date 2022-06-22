@@ -8,7 +8,6 @@ try:
     # assert requests.get('https://github.com/p-2022-091/modulos/network.py').status_code == 200
     import signal
 
-
     # # formating the log
     # import logging
     # FORMAT = '%(asctime)-15s %(nodeip)s %(type)-8s, message: %(message)s'

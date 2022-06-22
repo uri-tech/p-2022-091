@@ -1,8 +1,8 @@
 
 try:
     # import logging
-    import socket
-    import threading
+    # import socket
+    # import threading
     import socketserver
     # import sys
 except Exception as ex:
@@ -81,7 +81,8 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
 #                     # header_json = json.dumps(header_dic)
 #                     print(stderr)
 #                     # header_bytes = header_json.encode('utf-8')
-#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4, so the client can receive four bytes for the first time
+#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4,
+#                                                                                 so the client can receive four bytes for the first time
 #                     # self.request.send(header_bytes)
 #                     # self.request.send(stdout)
 #                     # self.request.send(stderr)

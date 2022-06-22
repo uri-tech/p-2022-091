@@ -2,7 +2,7 @@
 try:
     # import logging
     import socket
-    import threading
+    # import threading
     import socketserver
     # import sys
 except Exception as ex:
@@ -36,9 +36,9 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             # else:
             #     # Forword Lower
             #     forward_socket(HOSTPORT['Attacker_OUT'],HOSTPORT['Area_Low'],data_byte)
-            index_start = str(data_byte).find('dBm',0,10)+3
+            index_start = str(data_byte).find('dBm', 0, 10)+3
             client_id = int(str(data_byte)[index_start:index_start+10])
-            
+
             print(data_byte)
             # Send forward the same data, with lower snr
             if client_sid < client_id < client_sid + client_max_device:
@@ -101,7 +101,8 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
 #                     # header_json = json.dumps(header_dic)
 #                     print(stderr)
 #                     # header_bytes = header_json.encode('utf-8')
-#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4, so the client can receive four bytes for the first time
+#                     # self.request.send(struct.pack('i', len(header_bytes)))  # This sent a fixed number of bytes in the past 4,
+#                                                                                 so the client can receive four bytes for the first time
 #                     # self.request.send(header_bytes)
 #                     # self.request.send(stdout)
 #                     # self.request.send(stderr)

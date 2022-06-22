@@ -19,7 +19,7 @@ except Exception as ex:
 
 if __name__ == '__main__':
     try:
-        # Create the server, binding to ip HOST on PORT 
+        # Create the server, binding to ip HOST on PORT
         with socketserver.ThreadingTCPServer(("0.0.0.0", int(PORT_SERVER)), CustomTCPHandler) as server:
             logger.warning(f"Listening on 0.0.0.0 in port {PORT_SERVER}", extra=d)
             # Activate the server; this will keep running until  interrupt the program with Ctrl-C
