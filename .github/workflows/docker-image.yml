@@ -13,6 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build ./Area_Low --file ./Area_Low/Dockerfile --tag my-image-name:$(date +%s)
+    - name: check the repo
+      uses: actions/checkout@v3
+
+    - name: login to docker hub registry 
+#               echo $CR_PAT | docker login docker.io -u MY_USERNAME --password-stdin
+      run: |
+        echo $CR_PAT | docker login docker.io -u MY_USERNAME --password MY_PASSWORD
+      env:
+        CR_PAT: ${{ secrets.CR_DOCKER }}
+
+
+    - name: Build the Docker image "Area_Low"
+      run: |
+        docker build ./Area_Low --file ./Area_Low/Dockerfile --tag python-area-low:$(date +%s)
+        docker tag python-area-low:$(date +%s) urial1500/python-area-low:latest
+        docker push urial1500/python-area-low:latest
+
+#       with:
+#         image: nanajanashia/demo-app
+#         registry: docker.io
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_PASSWORD }}
+#         tags: v1, latest
+#         dockerfile: ./Area_Low/Dockerfile.ci
+
+
