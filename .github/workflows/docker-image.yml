@@ -16,9 +16,9 @@ jobs:
     - name: check the repo
       uses: actions/checkout@v3
 
-#     - name: login to docker hub registry 
-#       env:
-#         CR_PAT: ${{ secrets.CR_DOCKER }}
-#       run: |
-#         echo MY_USERNAME
-#         docker login docker.io -u MY_USERNAME --password-stdin MY_PASSWORD
+    - name: login to docker hub registry 
+      env:
+        CR_PAT: ${{ secrets.CR_DOCKER }}
+      run: |
+        echo MY_USERNAME
+        docker login docker.io -u MY_USERNAME --password-stdin MY_PASSWORD
