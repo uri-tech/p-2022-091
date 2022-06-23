@@ -20,5 +20,4 @@ jobs:
       env:
         CR_PAT: ${{ secrets.CR_DOCKER }}
       run: |
-        echo "$MY_USERNAME"
         docker login docker.io -u $MY_USERNAME --password-stdin $MY_PASSWORD
