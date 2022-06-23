@@ -18,7 +18,9 @@ jobs:
 
     - name: login to docker hub registry 
 #               echo $CR_PAT | docker login docker.io -u MY_USERNAME --password-stdin
-      run: docker login docker.io -u urial1500 --password-stdin z9f48jHE36hs#$f4db
+      run: |
+        echo MY_USERNAME
+        docker login docker.io -u MY_USERNAME --password-stdin MY_PASSWORD
       env:
         CR_PAT: ${{ secrets.CR_DOCKER }}
 
