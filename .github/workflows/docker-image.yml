@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: check the repo
+      uses: actions/checkout@v3
+
+#     - name: login to docker hub registry 
+#       env:
+#         CR_PAT: ${{ secrets.CR_DOCKER }}
+#       run: |
+#         echo MY_USERNAME
+#         docker login docker.io -u MY_USERNAME --password-stdin MY_PASSWORD
