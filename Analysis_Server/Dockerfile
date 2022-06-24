@@ -87,6 +87,7 @@ EXPOSE 8030
 CMD ["/bin/sh","-c", "python3 main.py"]
 
 
+
 # scp -r C:\bgu\p-2022-091\Analysis_Server a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
 # docker build -t python-analysis-server:v0.3 /p-2022-091/storage/nfs/image_build/Analysis_Server/
 

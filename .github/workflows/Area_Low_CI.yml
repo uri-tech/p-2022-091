@@ -5,7 +5,7 @@ on:
     branches: 
     - "master"
     paths:
-    - "Area_Low"
+    - "Area_Low/**"
 
 jobs:
   build:

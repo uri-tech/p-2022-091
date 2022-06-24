@@ -7,7 +7,7 @@ on:
   # pull_request:
   #   branches: [ "master" ]
     paths:
-    - "Analysis_Server"
+    - "Analysis_Server/**"
 
     # paths-ignore:
     # - "Analysis_Server/README.md"
