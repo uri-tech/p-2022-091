@@ -117,5 +117,5 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 
 # k:
 # kubectl -n p-2022-091 get pods
-# kubectl -n p-2022-091 logs deployment-python-satellite-65945dbc76-jxpbn
+# kubectl -n p-2022-091 logs deployment-python-satellite-***
 # kubectl -n p-2022-091 delete pod
