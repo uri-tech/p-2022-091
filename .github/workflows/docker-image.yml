@@ -20,7 +20,7 @@ jobs:
       env:
         CR_PAT: ${{ secrets.CR_DOCKER }}
       run: |
-        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }} docker.io
+        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
         docker build ./Area_Low --file ./Area_Low/Dockerfile --tag python-area-low:$(date +%s)
         docker tag python-area-low:$(date +%s) urial1500/python-area-low:latest
         docker push urial1500/python-area-low:latest
