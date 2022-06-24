@@ -19,11 +19,34 @@ jobs:
     - name: login to docker hub registry 
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        IMAGE_TAG=$(date +%s)
   
+    - name: build and push "Analysis_Server"
+      run: |
+        docker build ./Analysis_Server --file ./Analysis_Server/Dockerfile --tag urial1500/python-analysis-server:$IMAGE_TAG
+        docker push urial1500/python-analysis-server:$IMAGE_TAG
+        
+    - name: build and push "Area_High"
+      run: |
+        docker build ./Area_High --file ./Area_High/Dockerfile --tag urial1500/python-area-high:$IMAGE_TAG
+        docker push urial1500/python-area-high:$IMAGE_TAG
+        
     - name: build and push "Area_Low"
       run: |
-        IMAGE_TAG=$(date +%s)
         docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG
         docker push urial1500/python-area-low:$IMAGE_TAG
-        # docker tag python-area-low:$IMAGE_TAG urial1500/python-area-low:latest
-        # docker push urial1500/python-area-low:latest
+        
+    - name: build and push "Attacker"
+      run: |
+        docker build ./Attacker --file ./Attacker/Dockerfile --tag urial1500/python-attacker:$IMAGE_TAG
+        docker push urial1500/python-attacker:$IMAGE_TAG
+        
+    - name: build and push "Client"
+      run: |
+        docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG
+        docker push urial1500/python-client:$IMAGE_TAG
+        
+    - name: build and push "Satellite"
+      run: |
+        docker build ./Satellite --file ./Satellite/Dockerfile --tag urial1500/python-satellite:$IMAGE_TAG
+        docker push urial1500/python-satellite:$IMAGE_TAG
