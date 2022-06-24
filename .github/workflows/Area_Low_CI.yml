@@ -1,0 +1,26 @@
+name: Area_Low_CI
+
+on:
+  push:
+    branches: 
+    - "master"
+    paths:
+    - "Area_Low"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: check the repo
+      uses: actions/checkout@v3
+
+    - name: login to docker hub registry 
+      run: |
+        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: build and push "Area_Low"
+      run: |
+        IMAGE_TAG=$(date +%s)
+        docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG
+        docker push urial1500/python-area-low:$IMAGE_TAG

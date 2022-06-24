@@ -1,0 +1,62 @@
+name: Analysis_Server_CI
+
+on:
+  push:
+    branches: 
+    - "master"
+  # pull_request:
+  #   branches: [ "master" ]
+    paths:
+    - "Analysis_Server"
+
+    # paths-ignore:
+    # - "Analysis_Server/README.md"
+    # - "Analysis_Server/code_blocks.png"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: check the repo
+      uses: actions/checkout@v3
+
+    - name: login to docker hub registry 
+      run: |
+        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: build and push "Analysis_Server"
+      run: |
+        IMAGE_TAG=$(date +%s)
+        docker build ./Analysis_Server --file ./Analysis_Server/Dockerfile --tag urial1500/python-analysis-server:$IMAGE_TAG
+        docker push urial1500/python-analysis-server:$IMAGE_TAG
+
+    # - name: build and push "Area_High"
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Area_High --file ./Area_High/Dockerfile --tag urial1500/python-area-high:$IMAGE_TAG
+    #     docker push urial1500/python-area-high:$IMAGE_TAG
+
+    # - name: build and push "Area_Low"
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG
+    #     docker push urial1500/python-area-low:$IMAGE_TAG
+
+    # - name: build and push "Attacker"
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Attacker --file ./Attacker/Dockerfile --tag urial1500/python-attacker:$IMAGE_TAG
+    #     docker push urial1500/python-attacker:$IMAGE_TAG
+
+    # - name: build and push "Client"
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG
+    #     docker push urial1500/python-client:$IMAGE_TAG
+
+    # - name: build and push "Satellite"
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Satellite --file ./Satellite/Dockerfile --tag urial1500/python-satellite:$IMAGE_TAG
+    #     docker push urial1500/python-satellite:$IMAGE_TAG
