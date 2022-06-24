@@ -80,8 +80,6 @@ RUN chmod -R 777 /opt/code
 # run the sms-server-grpc
 CMD ["/bin/sh","-c", "python3 main.py"]
 
-
-
 # scp -r C:\bgu\p-2022-091\Satellite a87@87.68.184.***:/p-2022-091/storage/nfs/image_build
 
 # scp -r C:\bgu\p-2022-091\Satellite a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
