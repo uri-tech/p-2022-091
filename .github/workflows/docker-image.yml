@@ -17,11 +17,8 @@ jobs:
       uses: actions/checkout@v3
 
     - name: login to docker hub registry 
-      env:
-        CR_PAT: ${{ secrets.CR_DOCKER }}
       run: |
-        docker login docker.io -u $MY_USERNAME -p $MY_PASSWORD
-        # docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build ./Area_Low --file ./Area_Low/Dockerfile --tag python-area-low:$(date +%s)
         docker tag python-area-low:$(date +%s) urial1500/python-area-low:latest
-        #docker push urial1500/python-area-low:latest
+        # docker push urial1500/python-area-low:latest
