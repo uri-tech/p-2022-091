@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:      
-      DOCKER_TARGET_PLATFORM: linux/arm/v7   
+      DOCKER_TARGET_PLATFORM: linux/arm/v7
 
     steps:
     - name: Check the repo.
@@ -21,22 +21,33 @@ jobs:
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+    # - name: Build and push "Area_Low".
+    #   run: |
+    #     IMAGE_TAG=$(date +%s)
+    #     docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
+    #     docker push urial1500/python-area-low:$IMAGE_TAG
+    #     docker push urial1500/python-area-low:latest
+
     - name: Build and push "Area_Low".
       run: |
         IMAGE_TAG=$(date +%s)
-        docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
+        DOCKER_TARGET_PLATFORM=linux/arm/v7
+        docker buildx build ./Area_Low \
+        --platform $DOCKER_TARGET_PLATFORM  \
+        --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
+        --file ./Area_Low/Dockerfile \
+        --output type=image,push=true
         docker push urial1500/python-area-low:$IMAGE_TAG
         docker push urial1500/python-area-low:latest
 
-
-    - name: Build and push "Area_Low".
-      uses: pguyot/arm-runner-action@v2
-      with:
-        commands: |
-          IMAGE_TAG=$(date +%s)
-          docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
-          docker push urial1500/python-area-low:$IMAGE_TAG
-          docker push urial1500/python-area-low:latest
+    # - name: Build and push "Area_Low".
+    #   uses: pguyot/arm-runner-action@v2
+    #   with:
+    #     commands: |
+    #       IMAGE_TAG=$(date +%s)
+    #       docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
+    #       docker push urial1500/python-area-low:$IMAGE_TAG
+    #       docker push urial1500/python-area-low:latest
 
     # - name: Deploy to k8s cluster.
     #   uses: actions-hub/kubectl@master
