@@ -90,11 +90,6 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 # docker push 192.168.0.235:5000/python-area-low:latest
 
 
-
-
-
-
-
 # docker run:
 # docker run --name python-area-low -d -p 8012:8012 192.168.0.235:5000/python-area-low:latest
 # docker image ls
