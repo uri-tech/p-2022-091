@@ -18,19 +18,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: check the repo
+    - name: Check the repo.
       uses: actions/checkout@v3
 
-    - name: login to docker hub registry 
+    - name: Login to docker hub registry.
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: build and push "Analysis_Server"
+    - name: Build and push "Analysis_Server".
       run: |
         IMAGE_TAG=$(date +%s)
         docker build ./Analysis_Server --file ./Analysis_Server/Dockerfile --tag urial1500/python-analysis-server:$IMAGE_TAG
         docker push urial1500/python-analysis-server:$IMAGE_TAG
 
+    - name: Deploy to k8s cluster.
+      uses: danielr1996/kubectl-action@1.0.0
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        args: apply -f ./yml/container-python-Analysis_Server.yaml
     # - name: build and push "Area_High"
     #   run: |
     #     IMAGE_TAG=$(date +%s)

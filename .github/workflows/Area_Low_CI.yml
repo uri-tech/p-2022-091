@@ -12,15 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: check the repo
+    - name: Check the repo.
       uses: actions/checkout@v3
 
-    - name: login to docker hub registry 
+    - name: Login to docker hub registry.
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: build and push "Area_Low"
+    - name: Build and push "Area_Low".
       run: |
         IMAGE_TAG=$(date +%s)
         docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG
         docker push urial1500/python-area-low:$IMAGE_TAG
+
+    - name: Deploy to k8s cluster.
+      uses: danielr1996/kubectl-action@1.0.0
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        args: apply -f ./yml/container-python-Area_Low.yaml
