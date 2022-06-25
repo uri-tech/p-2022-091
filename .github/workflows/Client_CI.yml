@@ -22,9 +22,8 @@ jobs:
     - name: Build and push "Client".
       run: |
         IMAGE_TAG=$(date +%s)
-        # IMAGE_TAG=latest
-        docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG  --tag  urial1500/python-client:latest
-        docker push urial1500/python-client:latest
+        docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG --tag urial1500/python-client:latest
+        docker push urial1500/python-client:$IMAGE_TAG
 
     # - name: Deploy to k8s cluster.
     #   uses: actions-hub/kubectl@master
