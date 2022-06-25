@@ -1,6 +1,7 @@
 name: Analysis_Server_CI
 
 on:
+  workflow_dispatch:
   push:
     branches: 
     - "master"
