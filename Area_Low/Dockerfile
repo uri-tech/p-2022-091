@@ -16,7 +16,7 @@ WORKDIR /opt/code
 RUN chmod -R 777 /opt/code
 
 # install pip
-RUN apt update -y && apt install python3-pip -y
+RUN apt update -y; apt install python3-pip -y
 
 # Create a virtual environment for all the Python dependencies
 RUN python3 -m venv /opt/venv
@@ -67,7 +67,6 @@ COPY . .
 
 # promition END
 RUN chmod -R 777 /opt/code
-
 
 
 
