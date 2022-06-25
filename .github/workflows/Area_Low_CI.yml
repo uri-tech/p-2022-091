@@ -32,7 +32,7 @@ jobs:
 
     - name: Build and push "Area_Low".
       run: |
-        apt-get install binfmt-support qemu-user-static
+        # apt-get install binfmt-support qemu-user-static
         docker buildx create --name mbuilder
         docker buildx use mbuilder
         IMAGE_TAG=$(date +%s)
