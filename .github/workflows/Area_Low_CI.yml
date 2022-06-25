@@ -44,5 +44,5 @@ jobs:
       #   cd yml
       #   ls -a
       with:
-        args: apply -f YAML
+        args: apply -f $YAML
       #   # args: get nodes
