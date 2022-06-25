@@ -86,7 +86,7 @@ spec:
   ports:
     - name: port-area-low
       port: 8012
-      targetPort: 8012
+      targetPort: port-area-low
       protocol: TCP
   selector:
     app: python-area-low
