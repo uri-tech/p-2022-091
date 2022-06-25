@@ -44,5 +44,7 @@ jobs:
       #   cd yml
       #   ls -a
       with:
-        args: apply -f $YAML
+        repository: uri-tech/p-2022-091
+        path: ./yml/
+        args: apply -f container-python-Area_Low.yaml
       #   # args: get nodes
