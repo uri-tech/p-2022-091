@@ -69,5 +69,5 @@ jobs:
         # pwd
         ls
         cd yml
-        kubectl apply -f ./container-python-Area_Low.yaml
+        kubectl apply -f /home/runner/work/p-2022-091/p-2022-091//container-python-Area_Low.yaml
 
