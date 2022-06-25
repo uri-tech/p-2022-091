@@ -52,6 +52,9 @@ jobs:
         mkdir -p $HOME/.kube/
         echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config
         kubectl apply -f yml/analysis-server.yml
+        kubectl -n p-2022-091 patch deployment "deployment-python-analysis-server" -p \
+        "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+        kubectl -n p-2022-091 rollout restart deployment "deployment-python-analysis-server"
 
     # - name: build and push "Area_High"
     #   run: |
