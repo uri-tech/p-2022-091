@@ -21,7 +21,8 @@ jobs:
 
     - name: Build and push "Client".
       run: |
-        IMAGE_TAG=$(date +%s)
+        # IMAGE_TAG=$(date +%s)
+        IMAGE_TAG=latest
         docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG
         docker push urial1500/python-client:$IMAGE_TAG
 
