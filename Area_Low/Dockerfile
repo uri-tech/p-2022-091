@@ -71,9 +71,6 @@ RUN chmod -R 777 /opt/code
 
 
 
-
-
-
 # envirment variable - no need: controlling from ymal
 # ENV HOST_LOW_AREA=svc-python-area-low.p-2022-91.svc.cluster.local PORT_LOW_AREA=8012
 # ENV HOST_HIGH_AREA=svc-python-area-high.p-2022-91.svc.cluster.local PORT_HIGH_AREA=8022
