@@ -69,9 +69,9 @@ jobs:
         kubectl get nodes
         pwd
         ls
-        cd /home/runner/work/p-2022-091/p-2022-091/yml
+        cd /home/runner/work/p-2022-091/p-2022-091
         pwd
         ls
-        PATH="/home/runner/work/p-2022-091/p-2022-091/yml"
-        kubectl apply -f container-python-Area_Low.yaml
+        PATH="/home/runner/work/p-2022-091/p-2022-091"
+        kubectl apply -f yml/container-python-Area_Low.yaml
 
