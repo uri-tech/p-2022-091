@@ -23,42 +23,22 @@ jobs:
 
     # - name: Build and push "Area_Low".
     #   run: |
+    #     # apt-get install binfmt-support qemu-user-static
+    #     # docker buildx create --name mbuilder
+    #     # docker buildx use mbuilder
+    #     docker run --rm --privileged tonistiigi/binfmt --install all
     #     IMAGE_TAG=$(date +%s)
-    #     docker build ./Area_Low \
+    #     docker buildx create --use
+    #     DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
+    #     docker buildx build ./Area_Low --platform "linux/arm64" \
+    #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
     #     --file ./Area_Low/Dockerfile \
-    #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
-    #     docker push urial1500/python-area-low:$IMAGE_TAG
-    #     docker push urial1500/python-area-low:latest
+    #     --output type=image,push=true
 
-    - name: Build and push "Area_Low".
-      run: |
-        # apt-get install binfmt-support qemu-user-static
-        # docker buildx create --name mbuilder
-        # docker buildx use mbuilder
-        docker run --rm --privileged tonistiigi/binfmt --install all
-        IMAGE_TAG=$(date +%s)
-        docker buildx create --use
-        DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
-        docker buildx build ./Area_Low --platform "linux/arm64" \
-        --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
-        --file ./Area_Low/Dockerfile \
-        --output type=image,push=true
-        # docker push urial1500/python-area-low:$IMAGE_TAG
-        # docker push urial1500/python-area-low:latest
-
-    # - name: Build and push "Area_Low".
-    #   uses: pguyot/arm-runner-action@v2
-    #   with:
-    #     commands: |
-    #       IMAGE_TAG=$(date +%s)
-    #       docker build ./Area_Low --file ./Area_Low/Dockerfile --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
-    #       docker push urial1500/python-area-low:$IMAGE_TAG
-    #       docker push urial1500/python-area-low:latest
-
-    # - name: Deploy to k8s cluster.
-    #   uses: actions-hub/kubectl@master
-    #   env:
-    #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-    #   with:
-    #     # args: apply -f yml/container-python-Client.yaml
-    #     args: get nodes
+    - name: Deploy to k8s cluster.
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        # args: apply -f yml/container-python-Client.yaml
+        args: get nodes
