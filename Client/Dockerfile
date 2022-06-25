@@ -95,8 +95,6 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 # docker push 192.168.0.235:5000/python-client:latest
 
 
-
-
 # docker run:
 # docker run --name python-client -d -p 8012:8012 192.168.0.235:5000/python-client:latest
 # docker image ls
