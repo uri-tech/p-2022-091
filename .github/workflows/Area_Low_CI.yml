@@ -63,9 +63,9 @@ jobs:
         # cat /mnt/c/bgu/p-2022-091/DOC/simulation/kubecofig-p-2022-091 | base64
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       run: |
-        echo $KUBE_CONFIG > DDD
-        echo $DDD 
-        # kubectl --kubeconfig $DDD get nodes
-        # # kubectl get nodes
+        echo $KUBE_CONFIG > ddd
+        # echo $DDD 
+        kubectl --kubeconfig ./ddd get nodes
+        # kubectl get nodes
         # # kubectl apply -f yml/container-python-Area_Low.yaml
 
