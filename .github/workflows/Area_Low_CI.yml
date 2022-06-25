@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:      
+      DOCKER_TARGET_PLATFORM: linux/arm/v7   
 
     steps:
     - name: Check the repo.
