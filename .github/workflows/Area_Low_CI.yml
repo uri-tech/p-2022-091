@@ -35,8 +35,8 @@ jobs:
     - name: Deploy to k8s cluster.
       uses: actions-hub/kubectl@master
       env:
-        KUBE_CONTEXT: ${{ secrets.KUBE_CONTEXT }}
+        # cat $HOME/.kube/config | base64 
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-      #   kustomize.buildOptions: --enable_kyaml=false
-        args: apply -f yml/container-python-Client.yaml
+        args: apply -f yml/container-python-Area_Low.yaml
       #   args: get nodes
