@@ -40,7 +40,7 @@ jobs:
         INPUT_PATH: "/home/runner/work/p-2022-091/p-2022-091/"
         INPUT_REPOSITORY: "uri-tech/p-2022-091"
         GITHUB_WORKSPACE: "/home/runner/work/p-2022-091/p-2022-091/"
-        # GITHUB_WORKFLOW 
+        GITHUB_WORKFLOW: "/home/runner/work/p-2022-091/p-2022-091/"
         # YAML: $(cat /home/runner/work/p-2022-091/p-2022-091/yml/container-python-Area_Low.yaml)
       # run: |
       #   ls
@@ -48,9 +48,10 @@ jobs:
       #   cd yml
       #   ls -a
       with:
-        repository: uri-tech/p-2022-091
-        path: ./
+        # repository: uri-tech/p-2022-091
+        # path: ./
         # entryPoint: kubectl
         # entryPoint: kubectl apply -f yml/container-python-Area_Low.yaml
-        args: apply -f yml/container-python-Area_Low.yaml
+        # args: apply -f yml/container-python-Area_Low.yaml
         # args: get nodes
+        args: ls
