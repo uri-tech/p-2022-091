@@ -34,8 +34,8 @@ jobs:
 
     - name: Deploy to k8s cluster.
       uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: "aaaa"
+      # env:
+      #   KUBE_CONFIG: "aaaa"
         # KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       # with:
       #   kustomize.buildOptions: --enable_kyaml=false
