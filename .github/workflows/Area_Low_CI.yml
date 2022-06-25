@@ -54,4 +54,4 @@ jobs:
         # entryPoint: kubectl apply -f yml/container-python-Area_Low.yaml
         # args: apply -f yml/container-python-Area_Low.yaml
         # args: get nodes
-        args: apply -f https://github.com/uri-tech/p-2022-091/blob/master/yml/%E2%80%8F%E2%80%8Fcontainer-python-Area_Low.yaml
+        args: apply -f https://github.com/uri-tech/p-2022-091/yml/container-python-Area_Low.yaml
