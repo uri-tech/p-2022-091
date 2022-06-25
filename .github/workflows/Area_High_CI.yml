@@ -22,9 +22,9 @@ jobs:
     - name: Build and push "Area_High".
       run: |
         IMAGE_TAG=$(date +%s)
-        docker build ./Area_High --file ./Area_High/Dockerfile --tag urial1500/python-area-high:$IMAGE_TAG
+        docker build ./Area_High --file ./Area_High/Dockerfile --tag urial1500/python-area-high:$IMAGE_TAG --tag urial1500/python-area-high:latest
         docker push urial1500/python-area-high:$IMAGE_TAG
-        # latest
+        docker push urial1500/python-area-high:latest
 
     - name: Deploy to k8s cluster.
       uses: danielr1996/kubectl-action@1.0.0

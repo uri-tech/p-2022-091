@@ -22,8 +22,9 @@ jobs:
     - name: Build and push "Attacker".
       run: |
         IMAGE_TAG=$(date +%s)
-        docker build ./Attacker --file ./Attacker/Dockerfile --tag urial1500/python-attacker:$IMAGE_TAG
+        docker build ./Attacker --file ./Attacker/Dockerfile --tag urial1500/python-attacker:$IMAGE_TAG --tag urial1500/python-attacker:latest
         docker push urial1500/python-attacker:$IMAGE_TAG
+        docker push urial1500/python-attacker:latest
 
     - name: Deploy to k8s cluster.
       uses: danielr1996/kubectl-action@1.0.0

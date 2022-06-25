@@ -22,8 +22,9 @@ jobs:
     - name: Build and push "Satellite".
       run: |
         IMAGE_TAG=$(date +%s)
-        docker build ./Satellite --file ./Satellite/Dockerfile --tag urial1500/python-satellite:$IMAGE_TAG
+        docker build ./Satellite --file ./Satellite/Dockerfile --tag urial1500/python-satellite:$IMAGE_TAG --tag urial1500/python-satellite:latest
         docker push urial1500/python-satellite:$IMAGE_TAG
+        docker push urial1500/python-satellite:latest
 
     - name: Deploy to k8s cluster.
       uses: danielr1996/kubectl-action@1.0.0
