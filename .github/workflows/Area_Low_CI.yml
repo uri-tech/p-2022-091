@@ -48,13 +48,13 @@ jobs:
     #   #   pwd
     #   #   cd yml
     #   #   ls -a
-    #   # with:
+    #   with:
     #     # repository: uri-tech/p-2022-091
     #     # path: ./
     #     # entryPoint: kubectl
     #     # entryPoint: kubectl apply -f yml/container-python-Area_Low.yaml
     #     # args: apply -f yml/container-python-Area_Low.yaml
-    #     # args: get nodes
+    #     args: get nodes
     #     # args: apply -f https://github.com/uri-tech/p-2022-091/yml/container-python-Area_Low.yaml
 
 
@@ -63,14 +63,19 @@ jobs:
         # cat /mnt/c/bgu/p-2022-091/DOC/simulation/kubecofig-p-2022-091 | base64
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       run: |
-        printf "%s" "$KUBE_CONFIG" > "ddd"
-        kubectl --kubeconfig ddd get nodes
+        echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config
+        kubectl get nodes
 
 
-        # $KUBE_CONFIG -o ddd
-        # # echo $KUBE_CONFIG > ddd
-        # # echo $DDD 
-        # kubectl --kubeconfig ./ddd get nodes
-        # # kubectl get nodes
-        # # # kubectl apply -f yml/container-python-Area_Low.yaml
+        # kubectl config use-context $KUBE_CONTEXT
+
+        # printf "%s" "$KUBE_CONFIG" > "ddd"
+        # kubectl --kubeconfig ddd get nodes
+
+        # # $KUBE_CONFIG -o ddd
+        # # # echo $KUBE_CONFIG > ddd
+        # # # echo $DDD 
+        # # kubectl --kubeconfig ./ddd get nodes
+        # # # kubectl get nodes
+        # # # # kubectl apply -f yml/container-python-Area_Low.yaml
 
