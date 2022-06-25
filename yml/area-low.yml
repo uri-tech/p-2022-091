@@ -31,7 +31,7 @@ spec:
       containers:
         - name: python-area-low
           image: "urial1500/python-area-low:latest"
-          imagePullPolicy: Always
+          # imagePullPolicy: Always
           # imagePullPolicy: IfNotPresent
           ports:
             - name: port-area-low
