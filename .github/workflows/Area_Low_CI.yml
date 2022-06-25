@@ -73,5 +73,5 @@ jobs:
         pwd
         ls
         PATH="/home/runner/work/p-2022-091/p-2022-091/yml"
-        # kubectl apply -f container-python-Area_Low.yaml
+        kubectl apply -f container-python-Area_Low.yaml
 
