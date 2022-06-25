@@ -38,13 +38,13 @@ jobs:
         docker run --rm --privileged tonistiigi/binfmt --install all
         IMAGE_TAG=$(date +%s)
         docker buildx create --use
-        DOCKER_TARGET_PLATFORM="linux/arm64"
+        DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
         docker buildx build ./Area_Low --platform "linux/arm64" \
         --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
         --file ./Area_Low/Dockerfile \
         --output type=image,push=true
-        docker push urial1500/python-area-low:$IMAGE_TAG
-        docker push urial1500/python-area-low:latest
+        # docker push urial1500/python-area-low:$IMAGE_TAG
+        # docker push urial1500/python-area-low:latest
 
     # - name: Build and push "Area_Low".
     #   uses: pguyot/arm-runner-action@v2
