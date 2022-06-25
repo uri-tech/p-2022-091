@@ -20,16 +20,16 @@ jobs:
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    # - name: Build and push "Area_Low".
-    #   run: |
-    #     IMAGE_TAG=$(date +%s)
-    #     docker run --rm --privileged tonistiigi/binfmt --install all
-    #     docker buildx create --use
-    #     DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
-    #     docker buildx build ./Area_Low --platform $DOCKER_TARGET_PLATFORM \
-    #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
-    #     --file ./Area_Low/Dockerfile \
-    #     --output type=image,push=true
+    - name: Build and push "Area_Low".
+      run: |
+        IMAGE_TAG=$(date +%s)
+        docker run --rm --privileged tonistiigi/binfmt --install all
+        docker buildx create --use
+        DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
+        docker buildx build ./Area_Low --platform $DOCKER_TARGET_PLATFORM \
+        --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
+        --file ./Area_Low/Dockerfile \
+        --output type=image,push=true
 
     - name: Deploy to k8s cluster.
       env:
