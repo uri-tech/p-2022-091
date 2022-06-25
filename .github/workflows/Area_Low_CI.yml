@@ -64,7 +64,7 @@ jobs:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       run: |
         printf "%s" "$KUBE_CONFIG" > "ddd"
-        # kubectl --kubeconfig ddd get nodes
+        kubectl --kubeconfig ddd get nodes
 
 
         # $KUBE_CONFIG -o ddd
