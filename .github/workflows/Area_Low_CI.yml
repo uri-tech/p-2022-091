@@ -35,7 +35,7 @@ jobs:
         # apt-get install binfmt-support qemu-user-static
         # docker buildx create --name mbuilder
         # docker buildx use mbuilder
-        docker run -it --rm --privileged tonistiigi/binfmt --install all
+        docker run --rm --privileged tonistiigi/binfmt --install all
         IMAGE_TAG=$(date +%s)
         docker buildx create --use
         DOCKER_TARGET_PLATFORM="linux/arm64"
