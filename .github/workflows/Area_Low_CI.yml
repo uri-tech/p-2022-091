@@ -46,7 +46,7 @@ jobs:
       with:
         repository: uri-tech/p-2022-091
         path: ./
-        entryPoint: kubectl
+        # entryPoint: kubectl
         # entryPoint: kubectl apply -f yml/container-python-Area_Low.yaml
         # args: apply -f yml/container-python-Area_Low.yaml
         args: get nodes
