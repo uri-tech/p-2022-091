@@ -68,5 +68,5 @@ jobs:
         kubectl get nodes
         pwd
         ls
-        kubectl apply -f yml/container-python-Area_Low.yaml
+        kubectl apply -f "./yml/container-python-Area_Low.yaml"
 
