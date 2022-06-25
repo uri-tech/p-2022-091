@@ -37,7 +37,7 @@ if __name__ == '__main__':
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 # Connect to server and send data
                 sock.settimeout(SATELLITE_MIGRATION_TIME)
-                sock.connect((HOST_HIGH_AREA, PORT_HIGH_AREA))
+                sock.connect((HOST_HIGH_AREA, int(PORT_HIGH_AREA)))
                 start_time = time()
                 sock.sendall(bytes(str(SATELLITE_START_dBm) + str(SATELLITE_ID_LIST[idxSatelliteId]) + "1"*100 + "\n", "utf-8"))
 
