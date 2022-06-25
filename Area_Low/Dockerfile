@@ -87,6 +87,9 @@ CMD ["/bin/sh","-c", "python3 main.py"]
 
 
 
+
+
+
 # scp -r C:\bgu\p-2022-091\Area_Low a87@192.168.0.61:/p-2022-091/storage/nfs/image_build
 # docker build -t python-area-low:v0.3 /p-2022-091/storage/nfs/image_build/Area_Low/
 
