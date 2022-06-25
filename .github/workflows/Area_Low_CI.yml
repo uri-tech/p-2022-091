@@ -21,26 +21,26 @@ jobs:
       run: |
         docker login docker.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push "Area_Low".
-      run: |
-        IMAGE_TAG=$(date +%s)
-        docker build ./Area_Low \
-        --file ./Area_Low/Dockerfile \
-        --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
-        docker push urial1500/python-area-low:$IMAGE_TAG
-        docker push urial1500/python-area-low:latest
-
     # - name: Build and push "Area_Low".
     #   run: |
     #     IMAGE_TAG=$(date +%s)
-    #     DOCKER_TARGET_PLATFORM=linux/arm/v7
-    #     docker buildx build ./Area_Low \
-    #     --platform $DOCKER_TARGET_PLATFORM  \
-    #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
+    #     docker build ./Area_Low \
     #     --file ./Area_Low/Dockerfile \
-    #     --output type=image,push=true
+    #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest
     #     docker push urial1500/python-area-low:$IMAGE_TAG
     #     docker push urial1500/python-area-low:latest
+
+    - name: Build and push "Area_Low".
+      run: |
+        IMAGE_TAG=$(date +%s)
+        DOCKER_TARGET_PLATFORM="linux/arm64/v8"
+        docker buildx build ./Area_Low \
+        --platform $DOCKER_TARGET_PLATFORM  \
+        --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
+        --file ./Area_Low/Dockerfile
+        # --output type=image,push=true
+        docker push urial1500/python-area-low:$IMAGE_TAG
+        docker push urial1500/python-area-low:latest
 
     # - name: Build and push "Area_Low".
     #   uses: pguyot/arm-runner-action@v2
