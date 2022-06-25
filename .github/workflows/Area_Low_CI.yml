@@ -32,8 +32,11 @@ jobs:
 
     - name: Build and push "Area_Low".
       run: |
+        apt-get install binfmt-support qemu-user-static
+        docker buildx create --name mbuilder
+        docker buildx use mbuilder
         IMAGE_TAG=$(date +%s)
-        docker buildx create --use
+        # docker buildx create --use
         DOCKER_TARGET_PLATFORM="linux/arm64"
         docker buildx build ./Area_Low --platform $DOCKER_TARGET_PLATFORM \
         --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
