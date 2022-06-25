@@ -41,3 +41,4 @@ jobs:
         kubectl apply -f yml/area-low.yml
         kubectl -n p-2022-091 patch deployment "deployment-python-area-low" -p \
         "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+        kubectl -n p-2022-091 rollout restart deployment "deployment-python-area-low"
