@@ -36,6 +36,7 @@ jobs:
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-      with:
-        # args: apply -f yml/container-python-Client.yaml
-        args: get nodes
+      # with:
+      #   kustomize.buildOptions: --enable_kyaml=false
+      #   # args: apply -f yml/container-python-Client.yaml
+      #   args: get nodes
