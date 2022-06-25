@@ -67,7 +67,7 @@ jobs:
         echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config
         kubectl get nodes
         # pwd
-        # ls ./yml
+        ls
         cd yml
-        kubectl apply -f container-python-Area_Low.yaml
+        kubectl apply -f ./container-python-Area_Low.yaml
 
