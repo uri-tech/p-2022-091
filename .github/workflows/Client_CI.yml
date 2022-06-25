@@ -22,15 +22,19 @@ jobs:
     - name: Build and push "Client".
       run: |
         IMAGE_TAG=$(date +%s)
-        docker build ./Client --file ./Client/Dockerfile --tag urial1500/python-client:$IMAGE_TAG --tag urial1500/python-client:latest
-        docker push urial1500/python-client:$IMAGE_TAG
-        docker push urial1500/python-client:latest
+        docker run --rm --privileged tonistiigi/binfmt --install all
+        docker buildx create --use
+        DOCKER_TARGET_PLATFORM="linux/arm64,linux/amd64"
+        docker buildx build ./Client --platform $DOCKER_TARGET_PLATFORM \
+        --tag urial1500/python-client:$IMAGE_TAG --tag urial1500/python-client:latest  \
+        --file ./Client/Dockerfile \
+        --output type=image,push=true
 
-    # - name: Deploy to k8s cluster.
-    #   uses: actions-hub/kubectl@master
-    #   env:
-    #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-    #   with:
-    #     # args: apply -f yml/container-python-Client.yaml
-    #     args: get nodes
-       
+    - name: Deploy to k8s cluster.
+      env:
+        # cat /mnt/c/bgu/p-2022-091/DOC/simulation/kubecofig-p-2022-091 | base64
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      run: |
+        mkdir -p $HOME/.kube/
+        echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config
+        kubectl apply -f yml/client.yml
