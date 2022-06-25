@@ -11,8 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # env:      
-    #   DOCKER_TARGET_PLATFORM: linux/arm/v7
 
     steps:
     - name: Check the repo.
@@ -32,31 +30,6 @@ jobs:
     #     --tag urial1500/python-area-low:$IMAGE_TAG --tag urial1500/python-area-low:latest  \
     #     --file ./Area_Low/Dockerfile \
     #     --output type=image,push=true
-
-    # - name: Install kubectl.
-    #   uses: actions-hub/kubectl@master
-    #   env:
-    #     # cat /mnt/c/bgu/p-2022-091/DOC/simulation/kubecofig-p-2022-091 | base64
-    #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-    #     # INPUT_PATH: "/home/runner/work/p-2022-091/p-2022-091/"
-    #     # INPUT_REPOSITORY: "uri-tech/p-2022-091"
-    #     # GITHUB_WORKSPACE: "/home/runner/work/p-2022-091/p-2022-091/"
-    #     # GITHUB_WORKFLOW: "/home/runner/work/p-2022-091/p-2022-091/"
-    #     # YAML: $(cat /home/runner/work/p-2022-091/p-2022-091/yml/container-python-Area_Low.yaml)
-    #   # run: |
-    #   #   ls
-    #   #   pwd
-    #   #   cd yml
-    #   #   ls -a
-    #   with:
-    #     # repository: uri-tech/p-2022-091
-    #     # path: ./
-    #     # entryPoint: kubectl
-    #     # entryPoint: kubectl apply -f yml/container-python-Area_Low.yaml
-    #     # args: apply -f yml/container-python-Area_Low.yaml
-    #     args: get nodes
-    #     # args: apply -f https://github.com/uri-tech/p-2022-091/yml/container-python-Area_Low.yaml
-
 
     - name: Deploy to k8s cluster.
       env:
