@@ -60,5 +60,6 @@ jobs:
 
     - name: Deploy to k8s cluster.
       run: |
-        kubectl apply -f yml/container-python-Area_Low.yaml
+        kubectl
+        # kubectl apply -f yml/container-python-Area_Low.yaml
 
