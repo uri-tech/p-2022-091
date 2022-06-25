@@ -33,13 +33,15 @@ jobs:
     #     --output type=image,push=true
 
     - name: Deploy to k8s cluster.
-      uses: actions-hub/kubectl@master
+      # uses: actions-hub/kubectl@master
       env:
         # cat /mnt/c/bgu/p-2022-091/DOC/simulation/kubecofig-p-2022-091 | base64
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-      # run: |
-      #   ls
-      #   pwd
-      with:
-        args: apply -f /home/runner/work/p-2022-091/p-2022-091/yml/container-python-Area_Low.yaml
+      run: |
+        ls
+        pwd
+        cd yml
+        ls -a
+      # with:
+      #   args: apply -f "/home/runner/work/p-2022-091/p-2022-091/yml/container-python-Area_Low.yaml"
       #   # args: get nodes
