@@ -9,6 +9,7 @@ on:
   #   branches: [ "master" ]
     paths:
     - "Analysis_Server/**"
+    - "yml/analysis-server.yml"
 
     # paths-ignore:
     # - "Analysis_Server/README.md"
