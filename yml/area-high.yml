@@ -91,4 +91,3 @@ spec:
   selector:
     app: python-area-high
 ---
-
