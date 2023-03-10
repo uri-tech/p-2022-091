@@ -4,7 +4,7 @@
 # over to the runtime image
 ########
 # FROM alpine:3.12.4 AS compile-image
-FROM python:rc-slim-buster AS compile-image
+FROM python:3.12.0a5-slim-buster AS compile-image
 
 # create the main dit
 RUN  mkdir -p opt/code
@@ -39,7 +39,7 @@ RUN chmod -R 777 /opt/code
 # ########
 # # This image is the runtime, will copy the dependencies from the other
 # ########
-FROM python:rc-slim-buster AS runtime-image
+FROM python:3.12.0a5-slim-buster AS runtime-image
 
 # create the bin dir
 RUN  mkdir -p /opt/venv
