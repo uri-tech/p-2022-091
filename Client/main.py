@@ -27,7 +27,7 @@ def ClientThread(client_id: str):
         CLIENT_START_dBm: str = "4444dBm"
         # HOST_LOW_AREA = 'svc-python-area-low.svc.cluster.local'
         print(f"HOST_LOW_AREA: {HOST_LOW_AREA}, PORT_LOW_AREA:{PORT_LOW_AREA}")
-        while(True):
+        while True:
             CLIENT_MIGRATION_TIME: float = uniform(100, 130)
             temp_time = int((datetime.now() + timedelta(seconds=CLIENT_MIGRATION_TIME)).strftime("%Y%m%d%H%M%S"))
             idxClientId: int = randint(0, NUM_OF_CLIENT)
@@ -36,7 +36,16 @@ def ClientThread(client_id: str):
                 sock.settimeout(CLIENT_MIGRATION_TIME)
                 sock.connect((HOST_LOW_AREA, int(PORT_LOW_AREA)))
                 start_time = time()
-                sock.sendall(bytes(str(CLIENT_START_dBm) + str(CLIENT_ID_LIST[idxClientId]) + str(temp_time) + "1"*100 + "\n", "utf-8"))
+                sock.sendall(
+                    bytes(
+                        CLIENT_START_dBm
+                        + str(CLIENT_ID_LIST[idxClientId])
+                        + str(temp_time)
+                        + "1" * 100
+                        + "\n",
+                        "utf-8",
+                    )
+                )
                 # Receive data from the server and shut dow
                 received = str(sock.recv(1024), "utf-8")
                 print(f"received data: {received}")
@@ -54,7 +63,7 @@ def ClientThread(client_id: str):
 if __name__ == '__main__':
     try:
         NUM_OF_CLIENT: int = 1000
-        CLIENT_ID_LIST: list = [i for i in range(1000000000, 1000000000+NUM_OF_CLIENT, 1)]
+        CLIENT_ID_LIST: list = list(range(1000000000, 1000000000+NUM_OF_CLIENT, 1))
         shuffle(CLIENT_ID_LIST)
         idxClientId: int = 0
         while(True):

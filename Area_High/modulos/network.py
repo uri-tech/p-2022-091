@@ -28,7 +28,7 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             # self.request is the TCP socket connected to the client
             self.data = self.request.recv(1024).strip()
 
-            print("{} wrote:".format(self.client_address[1]))
+            print(f"{self.client_address[1]} wrote:")
             print(self.data)
             low_db = 2
             data_byte = lower_snr(self.data, low_db)
