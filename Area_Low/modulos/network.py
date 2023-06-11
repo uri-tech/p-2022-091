@@ -24,7 +24,7 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
         try:
             # self.request is the TCP socket connected to the client
             self.data = self.request.recv(1024).strip()
-            print("{} wrote:".format(self.client_address[0]))
+            print(f"{self.client_address[0]} wrote:")
             print(self.data)
 
             low_db = 2
@@ -39,13 +39,13 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
                     sock.connect(("localhost", 8014))
                     sock.sendall(data_byte)
 
-            # if(self.client_address[1] == HOSTPORT['Client']):
-            #     #"Forward Higher"
-            #     #forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Area_High'], data_byte)
-            #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Attacker'], data_byte)
-            # else:
-            #     #"Forward Higher"
-            #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Client'], data_byte)
+                # if(self.client_address[1] == HOSTPORT['Client']):
+                #     #"Forward Higher"
+                #     #forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Area_High'], data_byte)
+                #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Attacker'], data_byte)
+                # else:
+                #     #"Forward Higher"
+                #     forward_socket(HOSTPORT['Area_Low_OUT'], HOSTPORT['Client'], data_byte)
 
         except Exception as ex:
             print(f"ERROR:\n{ex}")

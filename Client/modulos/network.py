@@ -23,7 +23,7 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             # self.handle_timeout()
             # self.request is the TCP socket connected to the client
             self.data = self.request.recv(1024).strip()
-            print("{} wrote:".format(self.client_address[0]))
+            print(f"{self.client_address[0]} wrote:")
             print(self.data)
             # just send back the same data, but upper-cased
             self.request.sendall(self.data.upper())
@@ -37,7 +37,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         try:
             data = str(self.request.recv(1024), 'ascii')
             cur_thread = threading.current_thread()
-            response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+            response = bytes(f"{cur_thread.name}: {data}", 'ascii')
             self.request.sendall(response)
         except Exception as ex:
             print(f"ERROR:\n{ex}")
@@ -53,7 +53,7 @@ def client(ip, port, message):
             sock.connect((ip, port))
             sock.sendall(bytes(message, 'ascii'))
             response = str(sock.recv(1024), 'ascii')
-            print("Received: {}".format(response))
+            print(f"Received: {response}")
     except Exception as ex:
         print(f"ERROR:\n{ex}")
 

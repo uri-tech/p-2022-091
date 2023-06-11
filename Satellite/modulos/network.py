@@ -5,7 +5,7 @@ try:
     import socketserver
     from time import time
     import random
-    RANGE_CONNECTION_TIME: tuple = tuple((114, 124))
+    RANGE_CONNECTION_TIME: tuple = 114, 124
     # import sys
 except Exception as ex:
     raise Exception(f"ERROR:\n{ex}")
@@ -30,16 +30,16 @@ class CustomTCPHandler(socketserver.BaseRequestHandler):
             while(maxConnectionTime < RANGE_CONNECTION_TIME[0] or maxConnectionTime > RANGE_CONNECTION_TIME[1]):
                 maxConnectionTime: float = random.gauss(RANGE_CONNECTION_TIME[0]+daltaRange, daltaRange)
             # print(f"maxConnectionTime: {maxConnectionTime}")
-            if(time()-self.startTime < maxConnectionTime):
+            if (time()-self.startTime < maxConnectionTime):
                 # self.request is the TCP socket connected to the client
                 self.data = self.request.recv(1024).strip()
-                print("{} wrote:".format(self.client_address[0]))
+                print(f"{self.client_address[0]} wrote:")
                 print(self.data)
                 # just send back the same data, but upper-cased
                 self.request.sendall(self.data.upper())
-                # self.request is the TCP socket connected to the client
+                        # self.request is the TCP socket connected to the client
             else:
-                print(f"finish transmition with client")
+                print("finish transmition with client")
                 self.finish()
         except Exception as ex:
             print(f"ERROR:\n{ex}")
@@ -51,7 +51,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         try:
             data = str(self.request.recv(1024), 'ascii')
             cur_thread = threading.current_thread()
-            response = bytes("{}: {}".format(cur_thread.name, data), 'ascii')
+            response = bytes(f"{cur_thread.name}: {data}", 'ascii')
             self.request.sendall(response)
         except Exception as ex:
             print(f"ERROR:\n{ex}")
@@ -67,7 +67,7 @@ def client(ip, port, message):
             sock.connect((ip, port))
             sock.sendall(bytes(message, 'ascii'))
             response = str(sock.recv(1024), 'ascii')
-            print("Received: {}".format(response))
+            print(f"Received: {response}")
     except Exception as ex:
         print(f"ERROR:\n{ex}")
 
@@ -116,7 +116,7 @@ class MyTCPHandler2(socketserver.StreamRequestHandler):
             # self.rfile is a file-like object created by the handler;
             # we can now use e.g. readline() instead of raw recv() calls
             self.data = self.rfile.readline().strip()
-            print("{} wrote:".format(self.client_address[0]))
+            print(f"{self.client_address[0]} wrote:")
             print(self.data)
             # Likewise, self.wfile is a file-like object used to write back
             # to the client

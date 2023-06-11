@@ -27,11 +27,13 @@ def handler(signum, frame):
 if __name__ == '__main__':
     try:
         NUM_OF_SATELLITE: int = 1000
-        SATELLITE_ID_LIST: list = [i for i in range(2000000000, 2000000000+NUM_OF_SATELLITE, 1)]
+        SATELLITE_ID_LIST: list = list(
+            range(2000000000, 2000000000 + NUM_OF_SATELLITE, 1)
+        )
         shuffle(SATELLITE_ID_LIST)
         SATELLITE_START_dBm: str = "4444dBm"
 
-        while(True):
+        while True:
             SATELLITE_MIGRATION_TIME: float = uniform(100, 130)
             idxSatelliteId: int = randint(0, NUM_OF_SATELLITE)
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -39,7 +41,15 @@ if __name__ == '__main__':
                 sock.settimeout(SATELLITE_MIGRATION_TIME)
                 sock.connect((HOST_HIGH_AREA, int(PORT_HIGH_AREA)))
                 start_time = time()
-                sock.sendall(bytes(str(SATELLITE_START_dBm) + str(SATELLITE_ID_LIST[idxSatelliteId]) + "1"*100 + "\n", "utf-8"))
+                sock.sendall(
+                    bytes(
+                        SATELLITE_START_dBm
+                        + str(SATELLITE_ID_LIST[idxSatelliteId])
+                        + "1" * 100
+                        + "\n",
+                        "utf-8",
+                    )
+                )
 
                 # Set the signal handler and a 5-second alarm
                 # signal.setitimer(signal.SIGABRT, 5, interval=5.0)
